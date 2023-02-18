@@ -1,13 +1,10 @@
 import { useFonts } from "expo-font";
-import { StyleSheet } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import colors from "./constants/colors";
-import OnboardingScreen from "./screens/OnboardingScreen";
-import HomeScreen from "./screens/HomeScreen";
 import AppLoading from "expo-app-loading";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
+import { StatusBar } from "expo-status-bar";
+import CoinItem from "./components/CoinItem";
+import coins from "./data/cryptocurrencies.json";
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -20,17 +17,26 @@ export default function App() {
 	}
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator
-				screenOptions={{
-					headerShown: false,
-					contentStyle: { backgroundColor: "white" },
-				}}>
-				<Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-				<Stack.Screen name="HomeScreen" component={HomeScreen} />
-			</Stack.Navigator>
-		</NavigationContainer>
+		<View style={styles.container}>
+			<FlatList
+				data={coins}
+				renderItem={({ item }) => <CoinItem coin={item} />}
+			/>
+
+			<StatusBar style="light" />
+		</View>
 	);
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: colors.dark500,
+		paddingHorizontal: 8,
+		paddingTop: 36,
+	},
+	scrollview: {
+		backgroundColor: colors.dark500,
+		marginHorizontal: 12,
+	},
+});
