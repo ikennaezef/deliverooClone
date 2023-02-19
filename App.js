@@ -1,15 +1,22 @@
 import { useFonts } from "expo-font";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import colors from "./constants/colors";
 import AppLoading from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
-import CoinItem from "./components/CoinItem";
-import coins from "./data/cryptocurrencies.json";
+import HomeScreen from "./screens/HomeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import CoinDetailsScreen from "./screens/CoinDetailsScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
-		"open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
-		"open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+		"inter-light": require("./assets/fonts/Inter-Light.ttf"),
+		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
+		"inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
+		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
+		"inter-extrabold": require("./assets/fonts/Inter-ExtraBold.ttf"),
 	});
 
 	if (!fontsLoaded) {
@@ -17,14 +24,13 @@ export default function App() {
 	}
 
 	return (
-		<View style={styles.container}>
-			<FlatList
-				data={coins}
-				renderItem={({ item }) => <CoinItem coin={item} />}
-			/>
-
-			<StatusBar style="light" />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator
+				screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
+				<Stack.Screen name="Home" component={HomeScreen} />
+				<Stack.Screen name="CoinDetails" component={CoinDetailsScreen} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
 
@@ -34,9 +40,5 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.dark500,
 		paddingHorizontal: 8,
 		paddingTop: 36,
-	},
-	scrollview: {
-		backgroundColor: colors.dark500,
-		marginHorizontal: 12,
 	},
 });
