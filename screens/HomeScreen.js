@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import CoinItem from "../components/CoinItem";
+import colors from "../constants/colors";
+import coins from "../data/cryptocurrencies.json";
 
 const HomeScreen = () => {
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Welcome Home</Text>
+			<StatusBar style="light" />
+			<FlatList
+				data={coins}
+				renderItem={({ item }) => <CoinItem coin={item} />}
+			/>
 		</View>
 	);
 };
@@ -14,9 +22,9 @@ export default HomeScreen;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-		backgroundColor: "#D9D0E9",
+		backgroundColor: colors.dark500,
+		paddingHorizontal: 8,
+		paddingTop: 36,
 	},
 	text: {
 		fontSize: 24,
