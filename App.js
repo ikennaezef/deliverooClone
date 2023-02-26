@@ -1,15 +1,15 @@
-// import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
-import { Text, View } from "react-native";
-import colors from "./constants/colors";
 import AppLoading from "expo-app-loading";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeScreen from "./screens/HomeScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
 		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
 		"inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
+		"inter-semibold": require("./assets/fonts/Inter-SemiBold.ttf"),
 		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
 		"inter-extrabold": require("./assets/fonts/Inter-ExtraBold.ttf"),
 	});
@@ -19,10 +19,10 @@ export default function App() {
 	}
 
 	return (
-		<View className="flex-1 justify-center items-center">
-			<Text className="text-green-400 text-4xl font-[inter-bold]">
-				Hello world!!
-			</Text>
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="Home" component={HomeScreen} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
