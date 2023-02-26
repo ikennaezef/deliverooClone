@@ -1,19 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import CoinItem from "../components/CoinItem";
 import colors from "../constants/colors";
 import coins from "../data/cryptocurrencies.json";
 
 const HomeScreen = () => {
 	return (
-		<View style={styles.container}>
-			<StatusBar style="light" />
-			<FlatList
-				data={coins}
-				renderItem={({ item }) => <CoinItem coin={item} />}
-			/>
-		</View>
+		<SafeAreaView className="flex-1">
+			<Text className="text-xl font-[inter-regular]">
+				This is the Home Screen
+			</Text>
+		</SafeAreaView>
 	);
 };
 

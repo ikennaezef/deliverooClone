@@ -1,19 +1,13 @@
 // import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
-import { StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import colors from "./constants/colors";
 import AppLoading from "expo-app-loading";
-import { StatusBar } from "expo-status-bar";
-import HomeScreen from "./screens/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import CoinDetailsScreen from "./screens/CoinDetailsScreen";
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
-		"inter-light": require("./assets/fonts/Inter-Light.ttf"),
 		"inter-regular": require("./assets/fonts/Inter-Regular.ttf"),
 		"inter-medium": require("./assets/fonts/Inter-Medium.ttf"),
 		"inter-bold": require("./assets/fonts/Inter-Bold.ttf"),
@@ -25,21 +19,10 @@ export default function App() {
 	}
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator
-				screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
-				<Stack.Screen name="Home" component={HomeScreen} />
-				<Stack.Screen name="CoinDetails" component={CoinDetailsScreen} />
-			</Stack.Navigator>
-		</NavigationContainer>
+		<View className="flex-1 justify-center items-center">
+			<Text className="text-green-400 text-4xl font-[inter-bold]">
+				Hello world!!
+			</Text>
+		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: colors.dark500,
-		paddingHorizontal: 8,
-		paddingTop: 36,
-	},
-});
