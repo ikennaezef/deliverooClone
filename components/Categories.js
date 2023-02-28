@@ -1,33 +1,50 @@
-import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import { View, Text, ScrollView, ActivityIndicator } from "react-native";
+import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
+import client, { urlFor } from "../sanity";
 
 const Categories = () => {
+	const [categories, setCategories] = useState([]);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		setLoading(true);
+		client
+			.fetch(
+				`
+		*[_type == "category"]{
+			_id,
+			title,
+			image
+		}
+		`
+			)
+			.then((data) => {
+				setCategories(data);
+				setLoading(false);
+			})
+			.catch((err) => {
+				console.log("ERR ->>", err);
+				setLoading(false);
+			});
+	}, []);
+
+	if (loading) {
+		return <ActivityIndicator color="#00ccbb" size={36} className="py-6" />;
+	}
+
 	return (
 		<ScrollView
 			horizontal
 			showsHorizontalScrollIndicator={false}
 			contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 10 }}>
-			<CategoryCard
-				imgUrl="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
-				title="Sushi"
-			/>
-			<CategoryCard imgUrl="https://links.papareact.com/gn7" title="Sushi" />
-			<CategoryCard
-				imgUrl="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
-				title="Sushi"
-			/>
-			<CategoryCard imgUrl="https://links.papareact.com/gn7" title="Sushi" />
-			<CategoryCard
-				imgUrl="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
-				title="Sushi"
-			/>
-			<CategoryCard imgUrl="https://links.papareact.com/gn7" title="Sushi" />
-			<CategoryCard
-				imgUrl="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
-				title="Sushi"
-			/>
-			<CategoryCard imgUrl="https://links.papareact.com/gn7" title="Sushi" />
+			{categories.map((cat) => (
+				<CategoryCard
+					key={cat._id}
+					imgUrl={urlFor(cat.image).url()}
+					title={cat.title}
+				/>
+			))}
 		</ScrollView>
 	);
 };
