@@ -1,8 +1,12 @@
+import "react-native-url-polyfill/auto";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
+import RestaurantScreen from "./screens/RestaurantScreen";
+import { Provider } from "react-redux";
+import { store } from "./store";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -19,10 +23,14 @@ export default function App() {
 	}
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="Home" component={HomeScreen} />
-			</Stack.Navigator>
-		</NavigationContainer>
+		<Provider store={store}>
+			<NavigationContainer>
+				<Stack.Navigator
+					screenOptions={{ headerShown: false, animation: "slide_from_right" }}>
+					<Stack.Screen name="Home" component={HomeScreen} />
+					<Stack.Screen name="Restaurant" component={RestaurantScreen} />
+				</Stack.Navigator>
+			</NavigationContainer>
+		</Provider>
 	);
 }
