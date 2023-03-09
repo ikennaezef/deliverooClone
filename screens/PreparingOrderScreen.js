@@ -1,40 +1,69 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, ActivityIndicator, Image, Animated } from "react-native";
+import { View, Text, ActivityIndicator, Animated } from "react-native";
 
-const PreparingOrderScreen = () => {
+const PreparingOrderScreen = ({ navigation }) => {
 	const translateY = useRef(new Animated.Value(0)).current;
 
 	const animate = () => {
-		Animated.timing(translateY, {
-			toValue: 50,
-			delay: 300,
-			duration: 500,
-			useNativeDriver: true,
-		}).start();
-		Animated.timing(translateY, {
-			toValue: 0,
-			duration: 1500,
-			useNativeDriver: true,
-		}).start();
+		Animated.loop(
+			Animated.parallel([
+				Animated.sequence([
+					Animated.timing(translateY, {
+						toValue: 50,
+						duration: 1000,
+						useNativeDriver: true,
+					}),
+					Animated.timing(translateY, {
+						toValue: 0,
+						duration: 1000,
+						useNativeDriver: true,
+					}),
+				]),
+			]),
+			{ iterations: 4 }
+		).start();
 	};
+
+	const animateScale = translateY.interpolate({
+		inputRange: [0, 50],
+		outputRange: [0.8, 1.5],
+	});
+
+	const smallTransform = translateY.interpolate({
+		inputRange: [0, 50],
+		outputRange: [50, 0],
+	});
+	const smallScale = translateY.interpolate({
+		inputRange: [0, 50],
+		outputRange: [1.5, 0.9],
+	});
 
 	useEffect(() => {
 		animate();
 	}, [translateY]);
 
+	useEffect(() => {
+		setTimeout(() => {
+			navigation.navigate("Delivery");
+		}, 4000);
+	}, []);
+
 	return (
 		<View className="flex-1 bg-[#00ccbb] items-center justify-center">
-			<ActivityIndicator size={48} color="#333" />
-			<Image
-				source={require("../assets/delivery-man.gif")}
-				className="w-36 h-36"
-			/>
+			<ActivityIndicator size={48} color="#fff" />
+
 			<Animated.Text
 				className="text-lg font-[inter-bold]"
-				style={{ transform: [{ translateY }] }}>
+				style={{ transform: [{ translateY }, { scale: animateScale }] }}>
 				Preparing Your Order
 			</Animated.Text>
-			<Text className="text-sm font-[inter-medium]">Please Wait...</Text>
+			<Animated.Text
+				style={{
+					transform: [{ translateY: smallTransform }, { scale: smallScale }],
+				}}
+				className="text-sm font-[inter-medium] text-white">
+				Please Wait...
+			</Animated.Text>
 		</View>
 	);
 };
