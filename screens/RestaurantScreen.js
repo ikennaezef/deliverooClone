@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-	View,
-	Text,
-	SafeAreaView,
-	Image,
-	TouchableOpacity,
-	ScrollView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import DishItem from "../components/DishItem";
