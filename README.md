@@ -1,9 +1,27 @@
-# Number Game
+# Deliveroo Clone
 
-This is my first app with React Native. It is a number guessing game. You pick a number and then the computer(your device) tries to guess the correct number. 
+This is a food delivery app built with React Native and Sanity as a Content Management System.
+
+## Tools
+
+- React Native
+- TailwindCSS
+- Redux Toolkit
 
 ## Screenshots
 
-![Start Game Screen](./screenshots/startgame.png)
-![Game Screen](./screenshots/game.png)
-![Game Over Screen](./screenshots/gameover.png)
+### Home Screen
+
+![Home Screen](./screenshots/home_screen.png)
+
+### Restaurant Screen
+
+![Restaurant Screen](./screenshots/restaurant_screen.png)
+
+### Basket Screen
+
+![Basket Screen](./screenshots/basket_screen.png)
+
+### Delivery Screen
+
+![Delivery Screen](./screenshots/delivery_screen.png)
