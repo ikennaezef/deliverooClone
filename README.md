@@ -14,4 +14,4 @@ This is a food delivery app built with React Native and Sanity as a Content Mana
 
 ## Screenshots
 
-You can find screenshots in the `/screnshots` folder
+You can find screenshots in the `/screenshots` folder
