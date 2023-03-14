@@ -2,6 +2,10 @@
 
 This is a food delivery app built with React Native and Sanity as a Content Management System.
 
+### Cover
+
+![Cover](./screenshots/cover.png)
+
 ## Tools
 
 - React Native
@@ -10,18 +14,4 @@ This is a food delivery app built with React Native and Sanity as a Content Mana
 
 ## Screenshots
 
-### Home Screen
-
-![Home Screen](./screenshots/home_screen.png)
-
-### Restaurant Screen
-
-![Restaurant Screen](./screenshots/restaurant_screen.png)
-
-### Basket Screen
-
-![Basket Screen](./screenshots/basket_screen.png)
-
-### Delivery Screen
-
-![Delivery Screen](./screenshots/delivery_screen.png)
+You can find screenshots in the `/screnshots` folder
